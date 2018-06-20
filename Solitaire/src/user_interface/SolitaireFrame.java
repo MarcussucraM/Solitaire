@@ -146,13 +146,6 @@ public class SolitaireFrame extends JFrame {
 				game.resetSelectedCards();
 				update();
 			}
-			//then 
-			//game.moveCard()
-			
-			
-			//update will reset the state of all cardgraphics
-			//game.updateBoard();
-			//cards = game.getCardGraphics();
 			
 			canvas.repaint();
 			
