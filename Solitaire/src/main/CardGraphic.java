@@ -12,23 +12,26 @@ public class CardGraphic {
 	public int posY;
 	private Card card;
 	
+	boolean highLight;
 	//public Image img;
 	//public Color color;
 	
 	//this id cooresponds with the slot you're assigned to.
-	private int id;
+	private int slot_id;
 	
 	//used for creating empty slots on the screen
-	public CardGraphic(int x, int y) {
+	public CardGraphic(int x, int y, int slot_id) {
 		this.posX = x;
 		this.posY = y;
+		this.slot_id = slot_id;
 	}
 	
 	//used for creating cards on the screen
-	public CardGraphic(int x, int y, Card c) {
+	public CardGraphic(int x, int y, Card c, int id) {
 		this.posX = x;
 		this.posY = y;
 		this.card = c;
+		this.slot_id = id;
 	}
 	
 	//gets the card this cardgraphic is associated to
@@ -44,8 +47,20 @@ public class CardGraphic {
 		return false;
 	}
 	
+	public void setHighLight(boolean b) {
+		highLight = b;
+	}
+	
+	public boolean isHighLighted() {
+		return highLight;
+	}
+	
+	public int getSlotId() {
+		return slot_id;
+	}
+	
 	public String toString() {
-		return card + new BoardPosition(posX,posY).toString();
+		return card + "\nPosition on Board" + new BoardPosition(posX,posY).toString() + "\nSlot " + slot_id;
 	}
 
 }

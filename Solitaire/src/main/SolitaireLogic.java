@@ -104,6 +104,8 @@ public class SolitaireLogic {
 	//a card from the top of one slot(regardless of type)
 	//to the top of a foundation slot.
 	private boolean canMoveToFoundation(Slot from, Slot to) {
+		
+		
 		Card top_from = from.lookAtTopCard();
 		Card top_to = to.lookAtTopCard();
 
@@ -145,6 +147,8 @@ public class SolitaireLogic {
 	//we can put a card onto it.
 	public boolean canMove(Slot from, Slot to) {
 		// we're trying to move a card into a foundation slot.
+		if(from.size() == 0) return false;
+		
 		if (to.getType() == "f") {
 			return canMoveToFoundation(from, to);
 		}

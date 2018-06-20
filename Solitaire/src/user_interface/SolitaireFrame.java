@@ -1,5 +1,6 @@
 package user_interface;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -16,7 +17,7 @@ import main.*;
 
 //Our User Interface
 //DrawPanel is in charge of drawing cardGraphics to screen
-public class Basic_Frame extends JFrame {
+public class SolitaireFrame extends JFrame {
 	private final int frame_height = 600;
 	private final int frame_width = 750;
 	private boolean isVisible = true;
@@ -27,7 +28,7 @@ public class Basic_Frame extends JFrame {
 	private ArrayList<CardGraphic> slots;
 	private Solitaire game;
 
-	public Basic_Frame(Solitaire game) {
+	public SolitaireFrame(Solitaire game) {
 		//set up the frame
 		super.setTitle(name);
 		super.setSize(frame_width, frame_height);
@@ -54,13 +55,19 @@ public class Basic_Frame extends JFrame {
 		
 		public void paint(Graphics g) {
 			Graphics2D g2d = (Graphics2D) g;
+			drawBackGround(g2d);
 			drawSlots(g2d);
 			drawCards(g2d);				
+		}
+		
+		public void drawBackGround(Graphics2D g) {
+			g.setColor(Color.BLACK);
+			g.fillRect(0, 0, this.getWidth(), this.getHeight());
 		}
 
 		public void drawCards(Graphics2D g) {
 			for (int i = 0; i < cards.size(); i++) {
-				g.setColor(Color.BLACK);
+				g.setColor(Color.BLUE);
 				int x = cards.get(i).posX;
 				int y = cards.get(i).posY;
 				int width = cards.get(i).width;
@@ -74,6 +81,13 @@ public class Basic_Frame extends JFrame {
 				g.drawString(cards.get(i).getCard().toString(), x, y+15);
 				g.setColor(Color.RED);
 				g.drawRoundRect(x, y, width, height, arcWidth, arcHeight);
+				
+				if(cards.get(i).isHighLighted()) {
+					g.setColor(Color.RED);
+					g.setStroke(new BasicStroke(5));
+					g.drawRoundRect(x, y, width, height, arcWidth, arcHeight);
+					g.setStroke(new BasicStroke(1));
+				}
 			}
 		}
 
@@ -87,7 +101,14 @@ public class Basic_Frame extends JFrame {
 				int arcWidth = slots.get(i).arc_width;
 				int arcHeight = slots.get(i).arc_height;
 
-				g.fillRoundRect(x, y, width, height, arcWidth, arcHeight);
+				g.drawRoundRect(x, y, width, height, arcWidth, arcHeight);
+				
+				if(slots.get(i).isHighLighted()) {
+					g.setColor(Color.RED);
+					g.setStroke(new BasicStroke(5));
+					g.drawRoundRect(x, y, width, height, arcWidth, arcHeight);
+					g.setStroke(new BasicStroke(1));
+				}
 			}
 		}
 	}
@@ -95,13 +116,44 @@ public class Basic_Frame extends JFrame {
 	//Checks for mouse events and updates board and tells the view what to do
 	class SolitaireMouseListener implements MouseListener, MouseMotionListener{
 
+		private void update() {
+			game.updateBoard();
+			cards = game.getCardGraphics();
+			slots = game.getSlotGraphics();
+			
+		}
+		
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			//try to move card
-			game.selectCard(e.getX(), e.getY());
 			
-			game.updateBoard();
-			cards = game.getCardGraphics();
+			//if we are successful in selecting a card we try to make a move
+			//and if that move is successful we grab an updated state from the model
+			//and repaint
+			if(game.selectCard(e.getX(), e.getY())) {
+				if(game.tryToMakeMove()) {
+					update();
+				}
+				//update();
+			}
+			else if(game.selectSlot(e.getX(), e.getY())) {
+				if(game.tryToMakeMove()) {
+					update();
+				}
+				//update();
+			}
+			else {
+				game.resetSelectedCards();
+				update();
+			}
+			//then 
+			//game.moveCard()
+			
+			
+			//update will reset the state of all cardgraphics
+			//game.updateBoard();
+			//cards = game.getCardGraphics();
+			
 			canvas.repaint();
 			
 		}

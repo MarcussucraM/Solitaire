@@ -1,7 +1,7 @@
 package main;
 
 import controller.SolitaireCommandLineController;
-import user_interface.Basic_Frame;
+import user_interface.SolitaireFrame;
 
 
 //Entry Point for the Application
@@ -14,7 +14,7 @@ public class Runner {
 		//a.playGame();
 		
 		Solitaire game = new Solitaire();
-		Basic_Frame view = new Basic_Frame(game);
+		SolitaireFrame view = new SolitaireFrame(game);
 	}
 
 }

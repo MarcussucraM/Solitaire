@@ -25,7 +25,7 @@ public class Card {
 	}
 	
 	public String toString() {
-		return this.rank + " of " + suitNames[suit];
+		return this.rank + " of " + suitNames[suit].charAt(0);
 	}
 	
 	

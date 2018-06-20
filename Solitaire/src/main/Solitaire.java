@@ -46,31 +46,84 @@ public class Solitaire {
 		return gameBoard.getSlotEntities();
 	}
 	
-	//Wierd side affect of this 
-	//if you generate a random card
-	//and then you click it again when theres another card of
-	//the same rank/suit on a different stack
-	//the different stack will add another card too
-	public void selectCard(int x, int y) {
-		//first see if we already have a selected entity
-		//if so then try to move that entity over the selected card
+	public void resetSelectedCards() {
+		gameBoard.resetSelectedCards();
+	}
+	
+	//todo add some nicer comments
+	public boolean tryToMakeMove() {
+		ArrayList<CardGraphic> selectedCards = gameBoard.getSelectedCards();
+		boolean res = false;
 		
-		ArrayList<Card> cardCollisions = gameBoard.checkForCardCollisions(x, y);
-		if(cardCollisions.size() == 0) return;
-		for(int i = 0; i < allSlots.size(); i++) {
-			for(int j = 0; j < cardCollisions.size(); j++) {
-				if(cardCollisions.get(j).equals(allSlots.get(i).lookAtTopCard())) {
-					Slot selectedSlot = allSlots.get(i);
-					int randomRank = (int)(Math.random() * 13+1);
-					int randomSuit = (int)(Math.random() * 4);
-					selectedSlot.addCard(new Card(randomRank,randomSuit));
-					
-				}
+		if(selectedCards.size() == 2)
+		{
+			Slot slot1 = allSlots.get(selectedCards.get(0).getSlotId());
+			Slot slot2 = allSlots.get(selectedCards.get(1).getSlotId());
+			if(moveCard(slot1, slot2)) {
+				res = true;
 			}
-		}	
+			gameBoard.resetSelectedCards();
+		}
+		
+		return res;
 	}
 	
 	
+	
+	/*How to Select
+	 * A card/slot collision occurs if our mouse click at point (x,y)
+	 * is within one our CardGraphics bounding area.
+	 * if one of those CardGraphics Card value is equal to the top Card of the 
+	 * Slot its associated to - defined by its slot_id field, then its
+	 * deemed valid and we select it
+	 * 
+	 * As for slots - we check for these after card collisions because
+	 * some slot positions are behind other cards
+	 * Selecting a slot is easier because we can only select it if it's empty
+	 * 
+	 *  returns true if it was successful in selecting a card
+	 *  false otherwise
+	 */
+	public boolean selectCard(int x, int y) {
+		//our card and slotCollsions - if any
+		ArrayList<CardGraphic> cardCollisions = gameBoard.checkForCardCollisions(x, y);
+		ArrayList<CardGraphic> slotCollisions = gameBoard.checkForSlotCollision(x, y);
+		
+		for(int i = 0; i < cardCollisions.size(); i++) {
+			int slot_id = cardCollisions.get(i).getSlotId();
+			Card cardTopCard = allSlots.get(slot_id).lookAtTopCard();
+			Card cardClickedOn = cardCollisions.get(i).getCard();
+			
+			//Check for Card Collisions
+			//the card we picked on the top of the slot! - card selected
+			if(cardTopCard.equals(cardClickedOn)) {
+				gameBoard.addSelectedCard(cardCollisions.get(i));
+				//gameBoard.setSelectedCardGraphic(cardCollisions.get(i));
+				cardCollisions.get(i).setHighLight(true);
+				return true;
+			}
+		}
+		return false;
+		
+	}
+	
+	//Try to select an empty slot at point(x,y)
+	public boolean selectSlot(int x, int y) {
+		ArrayList<CardGraphic> slotCollisions = gameBoard.checkForSlotCollision(x, y);
+		for(int i = 0; i < slotCollisions.size(); i++) {
+			//we can't select a slot thats being covered by cards!
+			Slot currentSlot = allSlots.get(slotCollisions.get(i).getSlotId());
+			if(currentSlot.size() != 0) return false;
+			
+			//if we pass that check then add it to the the selected cards array
+			gameBoard.addSelectedCard(slotCollisions.get(i));
+			slotCollisions.get(i).setHighLight(true);
+			return true;
+		}
+		return false;
+	}
+	
+
 	//get these so we can check if they're all full
 	//in which case we've won the game.
 	public ArrayList<Slot> getFoundationSlots(){

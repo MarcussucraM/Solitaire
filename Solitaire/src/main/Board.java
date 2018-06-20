@@ -10,6 +10,10 @@ public class Board {
 	private ArrayList<CardGraphic> boardEntities;
 	private ArrayList<CardGraphic> slotEntities;
 	
+	private ArrayList<CardGraphic> selectedCards; 
+	
+	private CardGraphic selectedCardGraphic;
+	
 	//All of our initial starting positions for slots
 	//This makes our board very static (maybe change down the road?)
 	
@@ -32,20 +36,60 @@ public class Board {
 	public Board() {
 		boardEntities = new ArrayList<CardGraphic>();
 		slotEntities = new ArrayList<CardGraphic>();
+		selectedCards = new ArrayList<CardGraphic>();
+	}
+	
+	public void addSelectedCard(CardGraphic c) {
+		if(selectedCards.size() == 2) {
+			//error
+			return;
+		}
+		selectedCards.add(c);		
+	}
+	
+	public ArrayList<CardGraphic> getSelectedCards(){
+		return selectedCards;
+	}
+	
+	public void resetSelectedCards() {
+		for(int i = 0; i < selectedCards.size(); i++) {
+			selectedCards.get(i).setHighLight(false);
+		}
+		selectedCards.clear();
+	}
+	
+	public void setSelectedCardGraphic(CardGraphic c) {
+		this.selectedCardGraphic = c;
+	}
+	
+	public CardGraphic getSelectedCardGraphic() {
+		return this.selectedCardGraphic;
+	}
+	
+	public boolean hasSelectedCardGraphic() {
+		return this.selectedCardGraphic != null;
 	}
 	
 	
-	//we could possibly have cards overlapping eachother
-	//where we clicked so we need to return an array
-	public ArrayList<Card> checkForCardCollisions(int x, int y) {
-		ArrayList<Card> cards = new ArrayList<Card>();
+	public ArrayList<CardGraphic> checkForCardCollisions(int x, int y){
+		ArrayList<CardGraphic> cards = new ArrayList<CardGraphic>();
 		for(int i = 0; i < boardEntities.size(); i++) {
 			if(boardEntities.get(i).contains(x, y)) {
-				Card c = boardEntities.get(i).getCard();
-				cards.add(c);
+				cards.add(boardEntities.get(i));
 			}
 		}
 		return cards;
+	}
+	
+	
+	public ArrayList<CardGraphic> checkForSlotCollision(int x, int y) {
+		ArrayList<CardGraphic> slots = new ArrayList<CardGraphic>();
+		for(int i = 0; i < slotEntities.size(); i++) {
+			if(slotEntities.get(i).contains(x, y)) {
+				slots.add(slotEntities.get(i));
+			}
+		}
+		return slots;
 	}
 	
 	//todo - figure out what slot has been clicked
@@ -63,11 +107,12 @@ public class Board {
 	//this is really just here for the view to figure out where to draw the initial slots
 	//it also gives it an id to associate it with a slot
 	//fills the slotEntities array
+	//called by the Solitaire class 
 	private void generateSlotEntities(ArrayList<Slot> slots) {
 		for(int i = 0; i < slots.size(); i++) {
 			int x = slotStartPositions[i].getX();
 			int y = slotStartPositions[i].getY();
-			slotEntities.add(new CardGraphic(x,y));
+			slotEntities.add(new CardGraphic(x,y,i));
 			//cardGraphic.setID(i) //This is the index of the slot that the cardgraphic is in
 		}
 	}
@@ -91,7 +136,7 @@ public class Board {
 				//only apply the spacing on the cards after the first.
 				if(j!=0) currentY += cardSpacing;
 				
-				CardGraphic entity = new CardGraphic(currentX, currentY, next);	
+				CardGraphic entity = new CardGraphic(currentX, currentY, next, i);	
 				boardEntities.add(entity);
 			}
 		}
@@ -111,7 +156,9 @@ public class Board {
 	public void updateBoard(ArrayList<Slot> slots) {
 		//first remove the previous setup
 		boardEntities = new ArrayList<CardGraphic>();
+		slotEntities = new ArrayList<CardGraphic>();
 		generateCardEntities(slots);
+		generateSlotEntities(slots);
 	}
 	
 	public ArrayList<CardGraphic> getSlotEntities(){
