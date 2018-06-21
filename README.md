@@ -16,20 +16,22 @@ We need to add a win condition and maybe do something special when they win
 and allow the view to draw them onto the CardGraphics depending on the rank/suit of the CardGraphics
 Card member
 
-3.) Stats 
+3.) The GameOptions Panel
+Add a drop down list that allows us to pick from a couple basic functions
+such as New Game, Restart Game, Undo Move, Quit Game, etc
+
+****Besides these first three - the rest of these are optional and are worth extra credit
+
+4.) Stats 
 We can keep stats based on how the user is playing
 MoveCounter and TimePlayed are two things we could keep track of
 and report to the user during their play time
-
-4.) The GameOptions Panel
-Add a drop down list that allows us to pick from a couple basic functions
-such as New Game, Restart Game, Undo Move, Quit Game, etc
 
 5.) Undo Move Function
 Keep a previous state of the game from a move ago in memory that we can
 resort back to if we pick this from the GameOptions Panel
 
-5.) Game Styles
+6.) Game Styles
 Once we get alot of the main functionality out of the way we should start
 figuring out how to make the game look pretty!
 Allow the user to pick from a variety of styles that change how the background
