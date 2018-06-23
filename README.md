@@ -25,7 +25,8 @@ such as New Game, Restart Game, Undo Move, Quit Game, etc
 4.) Stats 
 We can keep stats based on how the user is playing
 MoveCounter and TimePlayed are two things we could keep track of
-and report to the user during their play time
+and report to the user during their play time by updating a 
+new panel on the view (A GameStats Panel)
 
 5.) Undo Move Function
 Keep a previous state of the game from a move ago in memory that we can
