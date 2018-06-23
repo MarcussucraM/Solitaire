@@ -4,7 +4,7 @@ Work Breakdown
 
 ***Plan***
 Scope - (Everyone)
-Schedule (including work breakdown structure, milestones and/or deliverables, and a Gantt chart) - (Marcus Kruzel)
+Schedule (including work breakdown structure, milestones and/or deliverables, and a Gantt chart) - (Marcus Kruzel && Pedro Rebollar)
 Team organization (including resumes of the team members) - (Everyone)
 Technical description of the system - (Marcus Kruzel)
 Data management plan - (Leo Aguirre)
