@@ -1,4 +1,4 @@
-package main;
+package model;
 
 import java.util.ArrayList;
 
@@ -19,7 +19,8 @@ public class Solitaire {
 	}
 	
 	//move a card from a slot to another slot
-	//return true if the move was sucessful - false otherwise
+	//return true if the move was successful - false otherwise
+	//todo this method may need to get moved - its not called by much
 	public boolean moveCard(Slot from, Slot to) {
 		if(logic.canMove(from, to)) {
 			to.addCard(from.removeTopCard());
@@ -85,9 +86,8 @@ public class Solitaire {
 	 *  false otherwise
 	 */
 	public boolean selectCard(int x, int y) {
-		//our card and slotCollsions - if any
+		//get collisions - if any exist
 		ArrayList<CardGraphic> cardCollisions = gameBoard.checkForCardCollisions(x, y);
-		ArrayList<CardGraphic> slotCollisions = gameBoard.checkForSlotCollision(x, y);
 		
 		for(int i = 0; i < cardCollisions.size(); i++) {
 			int slot_id = cardCollisions.get(i).getSlotId();
@@ -98,7 +98,6 @@ public class Solitaire {
 			//the card we picked on the top of the slot! - card selected
 			if(cardTopCard.equals(cardClickedOn)) {
 				gameBoard.addSelectedCard(cardCollisions.get(i));
-				//gameBoard.setSelectedCardGraphic(cardCollisions.get(i));
 				cardCollisions.get(i).setHighLight(true);
 				return true;
 			}

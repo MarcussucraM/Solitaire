@@ -1,4 +1,4 @@
-package main;
+package model;
 
 import java.util.ArrayList;
 
@@ -146,9 +146,9 @@ public class SolitaireLogic {
 	//each of those have a different set of rules to whether or not
 	//we can put a card onto it.
 	public boolean canMove(Slot from, Slot to) {
-		// we're trying to move a card into a foundation slot.
 		if(from.size() == 0) return false;
 		
+		// we're trying to move a card into a foundation slot.
 		if (to.getType() == "f") {
 			return canMoveToFoundation(from, to);
 		}

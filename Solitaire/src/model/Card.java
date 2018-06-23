@@ -1,4 +1,4 @@
-package main;
+package model;
 
 public class Card {
 	static final int spades = 0;

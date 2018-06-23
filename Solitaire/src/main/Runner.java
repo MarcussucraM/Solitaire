@@ -1,6 +1,7 @@
 package main;
 
 import controller.SolitaireCommandLineController;
+import model.Solitaire;
 import user_interface.SolitaireFrame;
 
 
@@ -10,6 +11,7 @@ import user_interface.SolitaireFrame;
 //otherwise use the last two lines
 public class Runner {
 	public static void main(String[] args) {
+		//if(args[0].equals("cmd"))
 		//SolitaireCommandLineController a = new SolitaireCommandLineController();
 		//a.playGame();
 		

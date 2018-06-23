@@ -1,0 +1,49 @@
+Schedule
+
+Work Breakdown
+
+***Plan***
+Scope - (Everyone)
+Schedule (including work breakdown structure, milestones and/or deliverables, and a Gantt chart) - (Marcus Kruzel)
+Team organization (including resumes of the team members) - (Everyone)
+Technical description of the system - (Marcus Kruzel)
+Data management plan - (Leo Aguirre)
+Test Plan - (Marcus Kruzel)
+
+***Requirements Analysis*** (can be broken down into multiple requirements)
+Definitions
+Use Cases
+Paper Prototype
+Class Diagrams
+
+***Implementation***
+Model Functionality and Logic(Including unit testing) - (Marcus Kruzel)
+View Functionality - (Marcus Kruzel && ???)
+Controller Functionality - (Marcus Kruzel && ???)
+Loading Images - ???
+Acceptance and Validation Testing - ???
+Optional Requirement 1(Stats) - ???
+Optional Requirement 2(Undo Move) - ???
+Optional Requirement 3(Game Styles) - ???
+
+***Conceptual Design***
+Document walking through working prototype - (???)
+
+***Technical Design***
+
+
+
+***MileStones/Deliverables***
+1.) Plan (part 1) 6/20/2018
+2.) Plan (part 2) 6/23/2018
+3.) Requirements (part 1) 6/30/2018
+4.) Requirements (part 2) 7/5/2018
+5.) Requirements (part 3) 7/10/2018
+6.) Working Prototype 7/10/2018
+4.) Conceptual Design 7/11/2018
+5.) Technical Design 7/18/2018
+6.) Core Functionality Complete(Release 1) 7/22/2018
+7.) Additional Features Complete(Release 2 - n?) 7/26/2018
+
+
+

@@ -1,0 +1,13 @@
+Test Plan
+
+Unit Testing
+    -will be done on all model entities (all methods for validation) 
+Functional Testing
+Integration Testing
+
+Acceptance testing through short releases to the user (The professor)
+    -Paper prototype
+    -1st working prototype
+    -1st release
+    -2nd release
+

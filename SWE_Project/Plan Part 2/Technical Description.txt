@@ -1,0 +1,42 @@
+Technical Description Of The System
+
+Modularized System
+-To build this system we plan on using the MVC architecture pattern
+-This will allow us to break our system into 3 modular parts
+-The Model will hold the state of our program - it will consist of
+    cards that hold their rank/suit, a deck to shuffle the cards,
+    slots to place cards, a game-board to hold slot/card positions to be
+    drawn, and more.    
+-The View will be in charge of showing the state of our program to the
+    Player, it will have a reference to the model which will give it access
+    to things such as the board so that it knows where to draw things on the screen.   
+-The Controller will be our client to the game - it will primarily take the form
+    of our listener classes - it will take input from the view and decide what to
+    do with it (update the model, output something from the view)
+
+
+Tools/Languages/Packages to be used
+-Our game will be made with the Java programming language
+-The UI (Options Panel/ Game Panel/ (optional)Stats Panel) will be made using the javax.swing package
+-Our Graphical elements (Cards/Board/Slots/anything else) will be drawn
+    using the Graphics2D Library in the java.awt package
+-The Card and Board Images will be loaded from a .jpg file - the cards from a sprite sheet found from google
+    it will be loaded onto something like a BufferedImage (from java.awt) using the java.io package to load a file.
+-User Input will be captured by listeners defined in the javax.swing package
+    We'll mostly be using MouseListeners to capture mouse events that occur in the game
+-We will not be using a game engine to create Solitaire - we feel that learning a game engine
+    to build something like this is a bit beyond the scope of the class/project so we'll
+    be doing things like collision handling from scratch.
+    
+    
+Process and Methodology
+-We will be using an Agile methodology
+    We feel that with creating a game the user should be heavily involved with what's going on.
+    Also, given that this is an online class, communication with members of the team isn't exactly
+    easy, and shouldn't be so formal, neither should the documentation. Most of our time should be spent
+    implementing and testing the solution, that will be our main form of documentation.
+-We will be using the multiple release incremental model
+    We plan on creating a system with core functionality first and then building upon that core system
+    with new features that add to the overall experience. Core functionality meaning being able to
+    play a complete game but having things such as graphics/extra features at a minimum.
+    

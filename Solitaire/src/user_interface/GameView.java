@@ -2,7 +2,7 @@ package user_interface;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import main.*;
+import model.*;
 
 public class GameView {
 	public Solitaire game;

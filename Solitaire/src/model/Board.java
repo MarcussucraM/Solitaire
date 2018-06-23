@@ -1,4 +1,4 @@
-package main;
+package model;
 
 import java.util.ArrayList;
 
@@ -8,11 +8,8 @@ import java.util.ArrayList;
 public class Board {
 	public static final int cardSpacing = 15;
 	private ArrayList<CardGraphic> boardEntities;
-	private ArrayList<CardGraphic> slotEntities;
-	
+	private ArrayList<CardGraphic> slotEntities;	
 	private ArrayList<CardGraphic> selectedCards; 
-	
-	private CardGraphic selectedCardGraphic;
 	
 	//All of our initial starting positions for slots
 	//This makes our board very static (maybe change down the road?)
@@ -57,19 +54,6 @@ public class Board {
 		}
 		selectedCards.clear();
 	}
-	
-	public void setSelectedCardGraphic(CardGraphic c) {
-		this.selectedCardGraphic = c;
-	}
-	
-	public CardGraphic getSelectedCardGraphic() {
-		return this.selectedCardGraphic;
-	}
-	
-	public boolean hasSelectedCardGraphic() {
-		return this.selectedCardGraphic != null;
-	}
-	
 	
 	public ArrayList<CardGraphic> checkForCardCollisions(int x, int y){
 		ArrayList<CardGraphic> cards = new ArrayList<CardGraphic>();

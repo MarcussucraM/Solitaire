@@ -1,4 +1,4 @@
-package main;
+package model;
 import java.awt.Color;
 
 //This class contains all things necessary for
@@ -20,10 +20,10 @@ public class CardGraphic {
 	private int slot_id;
 	
 	//used for creating empty slots on the screen
-	public CardGraphic(int x, int y, int slot_id) {
+	public CardGraphic(int x, int y, int id) {
 		this.posX = x;
 		this.posY = y;
-		this.slot_id = slot_id;
+		this.slot_id = id;
 	}
 	
 	//used for creating cards on the screen

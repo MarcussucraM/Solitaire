@@ -1,4 +1,4 @@
-package main;
+package model;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,6 +14,7 @@ public class Deck {
 			}
 		}
 	}
+	
 	
 	public void shuffleDeck() {
 		Collections.shuffle(cards);

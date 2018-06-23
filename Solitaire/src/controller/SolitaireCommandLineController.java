@@ -1,16 +1,14 @@
 package controller;
-import main.*;
+import model.*;
 import user_interface.*;
 
 public class SolitaireCommandLineController {
 	public Solitaire game;
 	public GameView view;
-	//public Basic_Frame view;
 	
 	
 	public SolitaireCommandLineController() {
 		this.game = new Solitaire();
-		//this.view = new Basic_Frame(game);
 		this.view = new GameView(game);
 	}
 	

@@ -1,25 +1,29 @@
-package Tests;
+package tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 
-import main.*;
-
 import org.junit.jupiter.api.Test;
 
-class TestModel {
+import model.*;
+
+class TestSolitaireLogic {
 
 	
 	@Test
-	void test() {
+	void test_Deck() {
 		Deck d = new Deck();
 		d.shuffleDeck();
+		
 		assertEquals(true, true);
 	}
 	
 	@Test
-	void testDrawKings() {
+	void test_drawKings() {
+		//make sure the top 4 cards of an unshuffled deck are actually kings
+		//we do this in the game first before we shuffle to grab the kings right
+		//away and place them
 		Deck d = new Deck();
 		ArrayList<Card> kings = new ArrayList<Card>();
 		for(int i = 0; i < 4; i++) {
@@ -30,18 +34,47 @@ class TestModel {
 	}
 	
 	@Test
-	void testSetUpTableauSlots() {
+	void test_setUpTableauSlots() {
 		//Basically make sure we're setting up correctly
 		//make sure by the end of the set up we have 13 sets of
 		//4 cards each in them with kings on the bottom
 		SolitaireLogic s = new SolitaireLogic();
-		
 		ArrayList<Slot> t_slot = s.setUpTableauSlots();
+		
+		//make sure there are 13 slots
 		assertEquals(t_slot.size() == 13, true);
 		
+		//make sure they're all size 4
 		for(int i= 0; i < t_slot.size(); i++) {
 			assertEquals(t_slot.get(i).size() == 4, true);
 		}
+		
+		//make sure there are 4 kings - all at the bottom of the slot pos(0)
+		int kingcount = 0;
+		for(int i = 0; i < t_slot.size(); i++) {
+			Card card_at_bottom = t_slot.get(i).getCards().get(0);
+			if(card_at_bottom.rank == 13) kingcount++;
+		}
+		
+		assertEquals(kingcount == 4, true);
+		
+	}
+	
+	@Test
+	void test_setUpFoundationSlots() {
+		SolitaireLogic s = new SolitaireLogic();
+		
+		ArrayList<Slot> f_slot = s.setUpFoundationSlots();
+		assertEquals(f_slot.size() == 4, true);
+		
+		for(int i = 0;i < f_slot.size(); i++) {
+			assertEquals(f_slot.get(i).size() == 0, true);
+		}
+	}
+	
+	@Test
+	void test_setUpSlots() {
+		
 	}
 	
 	@Test
@@ -84,6 +117,19 @@ class TestModel {
 		//should fail
 		from.addCard(new Card(10,3));		
 		assertEquals(false, s.canMove(from,to));
+	}
+	
+	@Test
+	void test_putEmptySlotOntoEmptySlot() {
+		//A player can possibly select a slot that's empty 
+		//and then select another slot - initiating the move
+		//function - we don't want to allow this
+		Slot to = Slot.createSlot("f");
+		Slot from = Slot.createSlot("t");
+		
+		SolitaireLogic s = new SolitaireLogic();
+		
+		assertEquals(false, s.canMove(from, to));
 	}
 	
 	@Test
