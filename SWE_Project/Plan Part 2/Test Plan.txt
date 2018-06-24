@@ -1,9 +1,12 @@
 Test Plan
 
+Due to the size of the project and the available environments, the testing will consist of three main testing components. The testing will be different than most testing environments since we don't have a QA, this also includes the availability of a non dedicated QA team. 
+
 Unit Testing
-    -will be done on all model entities (all methods for validation) 
+The main testing will be unit testing, this means that the developer will be responsible for testing his code as he progresses through the development. Due  to the MVC architecture the system will be impacted due to the dependency of the methods and the data. Since the developer can use tools such as JUnit to assist in the unit testing but due to the freely development process the developer will choose his methods. 
+
 Functional Testing
-Integration Testing
+The functional testing will be done by a specific individual due to the complexity of the system app being developed. The tester will run through the program flow when ever a specified building date is set on the calendar. This is because the builds will include major code changes and we don't want the bugs impacting the program date delivery. The developers will be focused on executing the code and the specified QA will run through the program and identify the bugs found. 
 
 Acceptance testing through short releases to the user (The professor)
     -Paper prototype
