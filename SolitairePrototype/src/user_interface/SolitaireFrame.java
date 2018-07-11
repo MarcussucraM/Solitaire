@@ -1,6 +1,7 @@
 package user_interface;
 
 import java.awt.BasicStroke;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -23,6 +24,7 @@ public class SolitaireFrame extends JFrame {
 	private boolean isVisible = true;
 	private String name = "Solitaire";
 	private DrawPanel canvas;
+	private StatsPanel statsbar;
 
 	private ArrayList<CardGraphic> cards;
 	private ArrayList<CardGraphic> slots;
@@ -36,7 +38,10 @@ public class SolitaireFrame extends JFrame {
 		super.setResizable(false);
 		super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
 		canvas = new DrawPanel();
-		super.add(canvas);
+		super.add(canvas, BorderLayout.CENTER);
+		
+		statsbar = new StatsPanel();
+		super.add(statsbar, BorderLayout.SOUTH);
 		
 		//add listeners
 		SolitaireMouseListener listener = new SolitaireMouseListener();
@@ -46,6 +51,8 @@ public class SolitaireFrame extends JFrame {
 		this.game = game;
 		cards = game.getCardGraphics();
 		slots = game.getSlotGraphics();
+		
+		statsbar.setTimer(true);
 		
 		
 	}
@@ -121,40 +128,11 @@ public class SolitaireFrame extends JFrame {
 			cards = game.getCardGraphics();
 			slots = game.getSlotGraphics();
 			
+			
 		}
 		
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			//try to move card
-			
-			//if we are successful in selecting a card we try to make a move
-			//and if that move is successful we grab an updated state from the model
-			//and repaint
-			if(game.selectCard(e.getX(), e.getY())) {
-				if(game.tryToMakeMove()) {
-					update();
-				}
-				//update();
-			}
-			else if(game.selectSlot(e.getX(), e.getY())) {
-				if(game.tryToMakeMove()) {
-					update();
-				}
-				//update();
-			}
-			else {
-				game.resetSelectedCards();
-				update();
-			}
-			//then 
-			//game.moveCard()
-			
-			
-			//update will reset the state of all cardgraphics
-			//game.updateBoard();
-			//cards = game.getCardGraphics();
-			
-			canvas.repaint();
 			
 		}
 
@@ -171,7 +149,37 @@ public class SolitaireFrame extends JFrame {
 
 		@Override
 		public void mousePressed(MouseEvent e) {
-			// TODO Auto-generated method stub
+			//try to move card
+			//if we are successful in selecting a card we try to make a move
+			//and if that move is successful we grab an updated state from the model
+			//and repaint
+			if(game.selectCard(e.getX(), e.getY())) {
+				if(game.tryToMakeMove()) {
+					update();
+					statsbar.incrementMoveCount();
+				}
+				//update();
+			}
+			else if(game.selectSlot(e.getX(), e.getY())) {
+				if(game.tryToMakeMove()) {
+					update();
+					statsbar.incrementMoveCount();
+				}
+				//update();
+			}
+			else {
+				game.resetSelectedCards();
+				update();
+			}
+			//then 
+			//game.moveCard()
+			
+			
+			//update will reset the state of all cardgraphics
+			//game.updateBoard();
+			//cards = game.getCardGraphics();
+			
+			canvas.repaint();
 			
 		}
 
